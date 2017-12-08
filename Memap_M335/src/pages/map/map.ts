@@ -5,7 +5,7 @@ import {google} from 'google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { CurrentLoc } from '../../interfaces/current-loc';
 
-
+let currentLoc: CurrentLoc;
 /**
  * Generated class for the MapPage page.
  *
@@ -20,6 +20,9 @@ import { CurrentLoc } from '../../interfaces/current-loc';
 })
 export class MapPage implements OnInit{
 
+    lat: string;
+    lon: string;
+
     ngOnInit(){
         this.geolocation.getCurrentPosition().then(pos => {
             console.log('lat1: ' + pos.coords.latitude + ', lon: ' +
@@ -31,11 +34,23 @@ export class MapPage implements OnInit{
             this.currentLoc.lat = pos.coords.latitude;
             this.currentLoc.lon = pos.coords.longitude;
             this.currentLoc.timestamp = pos.timestamp;
+
+            this.setlat(pos.coords.latitude.toString());
+            //this.lon = pos.coords.longitude.toString();
         });
 
 
-        console.log('lat3: ' + this.currentLoc.lat + ', lon: ' + this.currentLoc.lat);
+        //console.log('lat3: ' + this.lat + ', lon: ' + this.lon);
+        this.getlat();
     }
+
+    setlat(lat:string){
+        this.lat = lat;
+    }
+    getlat(){
+        console.log('lat3: ' + this.lat);
+    }
+
 
 
   map: google.maps.Map;
@@ -58,7 +73,7 @@ export class MapPage implements OnInit{
             zoom: minZoomLevel,
             minZoom: 17,
             maxZoom: 19,
-            center: new google.maps.LatLng(47.4130411 ,9.631689),
+            center: new google.maps.LatLng(40, 20),
             mapTypeControl: false,
             streetViewControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
