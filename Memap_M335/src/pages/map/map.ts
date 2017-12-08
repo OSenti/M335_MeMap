@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
 import {google} from 'google-maps';
@@ -18,25 +18,31 @@ import { CurrentLoc } from '../../interfaces/current-loc';
   selector: 'page-map',
   templateUrl: 'map.html',
 })
-export class MapPage {
+export class MapPage implements OnInit{
+
+    ngOnInit(){
+        this.geolocation.getCurrentPosition().then(pos => {
+            console.log('lat1: ' + pos.coords.latitude + ', lon: ' +
+                pos.coords.longitude);
+        });
+
+        this.geolocation.getCurrentPosition().then(pos => {
+            console.log('lat2: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+            this.currentLoc.lat = pos.coords.latitude;
+            this.currentLoc.lon = pos.coords.longitude;
+            this.currentLoc.timestamp = pos.timestamp;
+        });
+
+
+        console.log('lat3: ' + this.currentLoc.lat + ', lon: ' + this.currentLoc.lat);
+    }
+
 
   map: google.maps.Map;
   currentLoc: CurrentLoc = {lat:0 , lon: 0};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
       this.map = null;
-
-      geolocation.getCurrentPosition().then(pos => {
-          console.log('lat: ' + pos.coords.latitude + ', lon: ' +
-              pos.coords.longitude);
-      });
-
-      geolocation.getCurrentPosition().then(pos => {
-          console.log('lat: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-          this.currentLoc.lat = pos.coords.latitude;
-          this.currentLoc.lon = pos.coords.longitude;
-          this.currentLoc.timestamp = pos.timestamp;
-      });
   }
 
   ionViewDidLoad() {
@@ -52,7 +58,7 @@ export class MapPage {
             zoom: minZoomLevel,
             minZoom: 17,
             maxZoom: 19,
-            center: new google.maps.LatLng(47.413041 ,9.631689),
+            center: new google.maps.LatLng(47.4130411 ,9.631689),
             mapTypeControl: false,
             streetViewControl: false,
             mapTypeId: google.maps.MapTypeId.ROADMAP
