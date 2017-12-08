@@ -27,21 +27,26 @@ export class MapPage implements OnInit{
         this.geolocation.getCurrentPosition().then(pos => {
             console.log('lat1: ' + pos.coords.latitude + ', lon: ' +
                 pos.coords.longitude);
+
+            this.geolocation.getCurrentPosition().then(pos => {
+                console.log('lat2: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+                this.currentLoc.lat = pos.coords.latitude;
+                this.currentLoc.lon = pos.coords.longitude;
+                this.currentLoc.timestamp = pos.timestamp;
+
+                this.setlat(pos.coords.latitude.toString());
+
+                this.getlat();
         });
 
-        this.geolocation.getCurrentPosition().then(pos => {
-            console.log('lat2: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-            this.currentLoc.lat = pos.coords.latitude;
-            this.currentLoc.lon = pos.coords.longitude;
-            this.currentLoc.timestamp = pos.timestamp;
 
-            this.setlat(pos.coords.latitude.toString());
+
             //this.lon = pos.coords.longitude.toString();
         });
 
 
         //console.log('lat3: ' + this.lat + ', lon: ' + this.lon);
-        this.getlat();
+
     }
 
     setlat(lat:string){
