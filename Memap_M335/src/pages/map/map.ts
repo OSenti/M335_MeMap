@@ -20,49 +20,40 @@ let currentLoc: CurrentLoc;
 })
 export class MapPage implements OnInit{
 
-    lat: string;
-    lon: string;
+    lat: number;
+    lon: number;
 
     ngOnInit(){
         this.geolocation.getCurrentPosition().then(pos => {
-            console.log('lat1: ' + pos.coords.latitude + ', lon: ' +
-                pos.coords.longitude);
+            console.log('lat1: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+            this.setlat(+pos.coords.latitude);
+            this.setlon(+pos.coords.longitude);
 
-            this.geolocation.getCurrentPosition().then(pos => {
-                console.log('lat2: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-                this.currentLoc.lat = pos.coords.latitude;
-                this.currentLoc.lon = pos.coords.longitude;
-                this.currentLoc.timestamp = pos.timestamp;
-
-                this.setlat(pos.coords.latitude.toString());
-
-                this.getlat();
+            console.log('lat2: ' + this.lat + ', lon: ' + this.lon);
         });
-
-
-
-            //this.lon = pos.coords.longitude.toString();
-        });
-
-
-        //console.log('lat3: ' + this.lat + ', lon: ' + this.lon);
-
     }
 
-    setlat(lat:string){
+    setlat(lat:number){
         this.lat = lat;
     }
     getlat(){
-        console.log('lat3: ' + this.lat);
+        console.log('lat3: ' + this.lat.toString());
     }
 
-
+    setlon(lon:number){
+        this.lon = lon;
+    }
+    getlon(){
+        console.log('lon3: ' + this.lon);
+    }
 
   map: google.maps.Map;
+  posmarker: google.maps.Marker;
   currentLoc: CurrentLoc = {lat:0 , lon: 0};
 
   constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
       this.map = null;
+      this.posmarker = null;
   }
 
   ionViewDidLoad() {
@@ -73,16 +64,32 @@ export class MapPage implements OnInit{
 
     initializeMap() {
         let minZoomLevel = 3;
-        this.map = new
-        google.maps.Map(document.getElementById('map_canvas'), {
-            zoom: minZoomLevel,
-            minZoom: 17,
-            maxZoom: 19,
-            center: new google.maps.LatLng(40, 20),
-            mapTypeControl: false,
-            streetViewControl: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+        this.geolocation.getCurrentPosition().then(pos => {
+            console.log('lat1: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+            this.setlat(+pos.coords.latitude);
+            this.setlon(+pos.coords.longitude);
+
+            console.log('lat3: ' + this.lat + ', lon: ' + this.lon);
+
+            this.map = new
+            google.maps.Map(document.getElementById('map_canvas'), {
+                zoom: minZoomLevel,
+                minZoom: 17,
+                maxZoom: 19,
+                center: new google.maps.LatLng(this.lat, this.lon),
+                mapTypeControl: false,
+                streetViewControl: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+
+            var mylatlng = {lat: this.lat, lng: this.lon};
+
+            this.posmarker = new
+            google.maps.Marker({
+               position: mylatlng,
+               map: this.map,
+               title: 'Your Position'
+            });
         });
     }
-
 }

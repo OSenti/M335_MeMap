@@ -80,29 +80,28 @@ var MapPage = (function () {
         this.geolocation = geolocation;
         this.currentLoc = { lat: 0, lon: 0 };
         this.map = null;
+        this.posmarker = null;
     }
     MapPage.prototype.ngOnInit = function () {
         var _this = this;
         this.geolocation.getCurrentPosition().then(function (pos) {
-            console.log('lat1: ' + pos.coords.latitude + ', lon: ' +
-                pos.coords.longitude);
-            _this.geolocation.getCurrentPosition().then(function (pos) {
-                console.log('lat2: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
-                _this.currentLoc.lat = pos.coords.latitude;
-                _this.currentLoc.lon = pos.coords.longitude;
-                _this.currentLoc.timestamp = pos.timestamp;
-                _this.setlat(pos.coords.latitude.toString());
-                _this.getlat();
-            });
-            //this.lon = pos.coords.longitude.toString();
+            console.log('lat1: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+            _this.setlat(+pos.coords.latitude);
+            _this.setlon(+pos.coords.longitude);
+            console.log('lat2: ' + _this.lat + ', lon: ' + _this.lon);
         });
-        //console.log('lat3: ' + this.lat + ', lon: ' + this.lon);
     };
     MapPage.prototype.setlat = function (lat) {
         this.lat = lat;
     };
     MapPage.prototype.getlat = function () {
-        console.log('lat3: ' + this.lat);
+        console.log('lat3: ' + this.lat.toString());
+    };
+    MapPage.prototype.setlon = function (lon) {
+        this.lon = lon;
+    };
+    MapPage.prototype.getlon = function () {
+        console.log('lon3: ' + this.lon);
     };
     MapPage.prototype.ionViewDidLoad = function () {
         var _this = this;
@@ -111,20 +110,33 @@ var MapPage = (function () {
         });
     };
     MapPage.prototype.initializeMap = function () {
+        var _this = this;
         var minZoomLevel = 3;
-        this.map = new google.maps.Map(document.getElementById('map_canvas'), {
-            zoom: minZoomLevel,
-            minZoom: 17,
-            maxZoom: 19,
-            center: new google.maps.LatLng(40, 20),
-            mapTypeControl: false,
-            streetViewControl: false,
-            mapTypeId: google.maps.MapTypeId.ROADMAP
+        this.geolocation.getCurrentPosition().then(function (pos) {
+            console.log('lat1: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
+            _this.setlat(+pos.coords.latitude);
+            _this.setlon(+pos.coords.longitude);
+            console.log('lat3: ' + _this.lat + ', lon: ' + _this.lon);
+            _this.map = new google.maps.Map(document.getElementById('map_canvas'), {
+                zoom: minZoomLevel,
+                minZoom: 17,
+                maxZoom: 19,
+                center: new google.maps.LatLng(_this.lat, _this.lon),
+                mapTypeControl: false,
+                streetViewControl: false,
+                mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            var mylatlng = { lat: _this.lat, lng: _this.lon };
+            _this.posmarker = new google.maps.Marker({
+                position: mylatlng,
+                map: _this.map,
+                title: 'Your Position'
+            });
         });
     };
     MapPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-map',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/'<!--\n  Generated template for the MapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Map</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <div id="map_canvas"></div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/,
+            selector: 'page-map',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/'<!--\n  Generated template for the MapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Map</ion-title>\n  </ion-navbar>\n\n</ion-header>\n-->\n\n<ion-content no-border="true">\n  <div id="map_canvas"></div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
     ], MapPage);
