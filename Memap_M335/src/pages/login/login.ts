@@ -35,7 +35,7 @@ export class LoginPage {
         message: "Sie sind nun erfolgreich engeloggt!",
         duration: 3000
       }).present()
-      this.navCtrl.setRoot(HomePage);
+      this.navCtrl.setRoot("tabsPage");
     }
     catch(e)
     {
