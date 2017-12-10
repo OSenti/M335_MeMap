@@ -46,6 +46,7 @@ var LoginPageModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(211);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(328);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -94,6 +95,7 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 
 
 
+
 /**
  * Generated class for the LoginPage page.
  *
@@ -115,10 +117,10 @@ var LoginPage = (function () {
                 try {
                     result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
                     this.toast.create({
-                        message: "Sie sind nun erfolgreich engeloggt!",
+                        message: "Sie sind nun erfolgreich eingeloggt!",
                         duration: 3000
                     }).present();
-                    this.navCtrl.setRoot("tabsPage");
+                    this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
                 }
                 catch (e) {
                     console.error(e);
