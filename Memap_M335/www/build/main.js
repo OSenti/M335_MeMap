@@ -124,6 +124,8 @@ var MapPage = (function () {
                 center: new google.maps.LatLng(_this.lat, _this.lon),
                 mapTypeControl: true,
                 streetViewControl: false,
+                zoomControl: false,
+                overviewMapControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             var mylatlng = { lat: _this.lat, lng: _this.lon };
@@ -146,14 +148,14 @@ var MapPage = (function () {
             var infowindow = new google.maps.InfoWindow({
                 content: contentString
             });
-            var MyPosIcon = 'https://cdn1.iconfinder.com/data/icons/hawcons/32/';
+            var MyPosIcon = 'https://cdn2.iconfinder.com/data/icons/snipicons/500/';
             var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
             var icons = {
                 me: {
-                    icon: MyPosIcon + '698847-icon-12-mail-add-48.png'
+                    icon: MyPosIcon + 'map-marker-48.png'
                 },
                 memo: {
-                    icon: MemoPosIcon + 'library_maps.png'
+                    icon: MemoPosIcon
                 }
             };
             _this.posmarker = new google.maps.Marker({
@@ -170,7 +172,7 @@ var MapPage = (function () {
     };
     MapPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-map',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/'<!--\n  Generated template for the MapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Map</ion-title>\n  </ion-navbar>\n\n</ion-header>\n-->\n\n<ion-content no-border="true">\n  <div id="map_canvas"></div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/,
+            selector: 'page-map',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/'<!--\n  Generated template for the MapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Map</ion-title>\n  </ion-navbar>\n\n</ion-header>\n-->\n\n<ion-content no-border="true">\n  <div id="map_canvas"></div>\n\n  <ion-img id="addBtn" src="https://cdn4.iconfinder.com/data/icons/web-ui-color/128/Plus-256.png"></ion-img>\n\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
     ], MapPage);

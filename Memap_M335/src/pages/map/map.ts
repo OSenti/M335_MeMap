@@ -83,6 +83,8 @@ export class MapPage implements OnInit{
                 center: new google.maps.LatLng(this.lat, this.lon),
                 mapTypeControl: true,
                 streetViewControl: false,
+                zoomControl: false,
+                overviewMapControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
@@ -111,14 +113,14 @@ export class MapPage implements OnInit{
             });
 
 
-            var MyPosIcon = 'https://cdn1.iconfinder.com/data/icons/hawcons/32/';
+            var MyPosIcon = 'https://cdn2.iconfinder.com/data/icons/snipicons/500/';
             var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
             var icons = {
                 me: {
-                    icon: MyPosIcon + '698847-icon-12-mail-add-48.png'
+                    icon: MyPosIcon + 'map-marker-48.png'
                 },
                 memo: {
-                    icon: MemoPosIcon + 'library_maps.png'
+                    icon: MemoPosIcon
                 }
             };
 
