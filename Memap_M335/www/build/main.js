@@ -1,4 +1,4 @@
-webpackJsonp([2],{
+webpackJsonp([3],{
 
 /***/ 100:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -124,30 +124,12 @@ var MapPage = (function () {
                 center: new google.maps.LatLng(_this.lat, _this.lon),
                 mapTypeControl: true,
                 streetViewControl: false,
+                fullscreenControl: false,
                 zoomControl: false,
                 overviewMapControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             var mylatlng = { lat: _this.lat, lng: _this.lon };
-            var contentString = '<div style="width: 500px">' +
-                '<div id="siteNotice">' +
-                '</div>' +
-                '<h1 id="firstHeading" class="firstHeading">Add new Memo</h1>' +
-                '<div id="bodyContent">' +
-                '<p><h1>Test</h1>' +
-                '<form method="post">' +
-                '<ion-item>' +
-                '<ion-label color="primary">Inline Label</ion-label>' +
-                '<ion-input placeholder="Text Input"></ion-input>' +
-                '</ion-item>' +
-                '<button ion-button type="submit" block>Add User</button>' +
-                '</form>' +
-                '</p>' +
-                '</div>' +
-                '</div>';
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
             var MyPosIcon = 'https://cdn2.iconfinder.com/data/icons/snipicons/500/';
             var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
             var icons = {
@@ -164,15 +146,14 @@ var MapPage = (function () {
                 title: 'Your Position',
                 icon: icons.me.icon
             });
-            _this.posmarker.addListener('click', function () {
-                infowindow.open(this.map, this.posmarker);
-                infowindow.setPosition(mylatlng);
-            });
         });
+    };
+    MapPage.prototype.addMemo = function () {
+        this.navCtrl.push("AddMemoPage");
     };
     MapPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-map',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/'<!--\n  Generated template for the MapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Map</ion-title>\n  </ion-navbar>\n\n</ion-header>\n-->\n\n<ion-content no-border="true">\n  <div id="map_canvas"></div>\n\n  <ion-img id="addBtn" src="https://cdn4.iconfinder.com/data/icons/web-ui-color/128/Plus-256.png"></ion-img>\n\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/,
+            selector: 'page-map',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/'<!--\n  Generated template for the MapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Map</ion-title>\n  </ion-navbar>\n\n</ion-header>\n-->\n\n<ion-content no-border="true">\n  <div id="map_canvas"></div>\n      <button ion-fab strong (click)="addMemo()" id="addBtn"><ion-icon name="md-add-circle" id="addIcon"></ion-icon></button>>\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
     ], MapPage);
@@ -204,13 +185,17 @@ webpackEmptyAsyncContext.id = 112;
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
-	"../pages/chats/chats.module": [
+	"../pages/add-memo/add-memo.module": [
 		275,
-		1
+		0
+	],
+	"../pages/chats/chats.module": [
+		276,
+		2
 	],
 	"../pages/map/map.module": [
-		276,
-		0
+		277,
+		1
 	]
 };
 function webpackAsyncContext(req) {
@@ -367,6 +352,7 @@ var AppModule = (function () {
                 __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
                 __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
                     links: [
+                        { loadChildren: '../pages/add-memo/add-memo.module#AddMemoPageModule', name: 'AddMemoPage', segment: 'add-memo', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
                         { loadChildren: '../pages/map/map.module#MapPageModule', name: 'MapPage', segment: 'map', priority: 'low', defaultHistory: [] }
                     ]
