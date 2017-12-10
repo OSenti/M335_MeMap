@@ -1,9 +1,12 @@
-import {Component, OnInit} from '@angular/core';
+import {Component, OnInit} from "@angular/core";
 import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
 
 import {google} from 'google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { CurrentLoc } from '../../interfaces/current-loc';
+
+import {FirebaseProvider} from "../../providers/firebase/firebase";
+
 
 let currentLoc: CurrentLoc;
 /**
@@ -19,6 +22,7 @@ let currentLoc: CurrentLoc;
   templateUrl: 'map.html',
 })
 export class MapPage implements OnInit{
+
 
     lat: number;
     lon: number;
@@ -77,19 +81,62 @@ export class MapPage implements OnInit{
                 minZoom: 17,
                 maxZoom: 19,
                 center: new google.maps.LatLng(this.lat, this.lon),
-                mapTypeControl: false,
+                mapTypeControl: true,
                 streetViewControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
             var mylatlng = {lat: this.lat, lng: this.lon};
 
+
+            var contentString = '<div style="width: 500px">'+
+                '<div id="siteNotice">'+
+                '</div>'+
+                '<h1 id="firstHeading" class="firstHeading">Add new Memo</h1>'+
+                '<div id="bodyContent">'+
+                '<p><h1>Test</h1>' +
+                '<form method="post">' +
+                '<ion-item>' +
+                '<ion-label color="primary">Inline Label</ion-label>'+
+                '<ion-input placeholder="Text Input"></ion-input>'+
+                '</ion-item>' +
+                '<button ion-button type="submit" block>Add User</button>' +
+                '</form>' +
+                '</p>'+
+                '</div>'+
+                '</div>';
+
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+
+
+            var MyPosIcon = 'https://cdn1.iconfinder.com/data/icons/hawcons/32/';
+            var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
+            var icons = {
+                me: {
+                    icon: MyPosIcon + '698847-icon-12-mail-add-48.png'
+                },
+                memo: {
+                    icon: MemoPosIcon + 'library_maps.png'
+                }
+            };
+
             this.posmarker = new
             google.maps.Marker({
                position: mylatlng,
                map: this.map,
-               title: 'Your Position'
+               title: 'Your Position',
+               icon: icons.me.icon
             });
+
+            this.posmarker.addListener('click', function() {
+
+                infowindow.open(this.map, this.posmarker);
+                infowindow.setPosition(mylatlng);
+
+            });
+
         });
     }
 }

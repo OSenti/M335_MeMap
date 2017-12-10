@@ -122,15 +122,49 @@ var MapPage = (function () {
                 minZoom: 17,
                 maxZoom: 19,
                 center: new google.maps.LatLng(_this.lat, _this.lon),
-                mapTypeControl: false,
+                mapTypeControl: true,
                 streetViewControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
             var mylatlng = { lat: _this.lat, lng: _this.lon };
+            var contentString = '<div style="width: 500px">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">Add new Memo</h1>' +
+                '<div id="bodyContent">' +
+                '<p><h1>Test</h1>' +
+                '<form method="post">' +
+                '<ion-item>' +
+                '<ion-label color="primary">Inline Label</ion-label>' +
+                '<ion-input placeholder="Text Input"></ion-input>' +
+                '</ion-item>' +
+                '<button ion-button type="submit" block>Add User</button>' +
+                '</form>' +
+                '</p>' +
+                '</div>' +
+                '</div>';
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            var MyPosIcon = 'https://cdn1.iconfinder.com/data/icons/hawcons/32/';
+            var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
+            var icons = {
+                me: {
+                    icon: MyPosIcon + '698847-icon-12-mail-add-48.png'
+                },
+                memo: {
+                    icon: MemoPosIcon + 'library_maps.png'
+                }
+            };
             _this.posmarker = new google.maps.Marker({
                 position: mylatlng,
                 map: _this.map,
-                title: 'Your Position'
+                title: 'Your Position',
+                icon: icons.me.icon
+            });
+            _this.posmarker.addListener('click', function () {
+                infowindow.open(this.map, this.posmarker);
+                infowindow.setPosition(mylatlng);
             });
         });
     };

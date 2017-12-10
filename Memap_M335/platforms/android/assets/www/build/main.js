@@ -80,6 +80,7 @@ var MapPage = (function () {
         this.geolocation = geolocation;
         this.currentLoc = { lat: 0, lon: 0 };
         this.map = null;
+        this.posmarker = null;
     }
     MapPage.prototype.ngOnInit = function () {
         var _this = this;
@@ -87,20 +88,7 @@ var MapPage = (function () {
             console.log('lat1: ' + pos.coords.latitude + ', lon: ' + pos.coords.longitude);
             _this.setlat(+pos.coords.latitude);
             _this.setlon(+pos.coords.longitude);
-            console.log('lat3: ' + _this.lat + ', lon: ' + _this.lon);
-            /*
-                        this.geolocation.getCurrentPosition().then(pos => {
-                            this.currentLoc.lat = pos.coords.latitude;
-                            this.currentLoc.lon = pos.coords.longitude;
-                            this.currentLoc.timestamp = pos.timestamp;
-                            console.log('lat2: ' + this.currentLoc.lat + ', lon: ' + this.currentLoc.lon);
-            
-            
-                            this.setlat(+pos.coords.latitude);
-                            this.setlon(+pos.coords.longitude);
-            
-                            console.log('lat3: ' + this.lat + ', lon: ' + this.lon);
-                    });*/
+            console.log('lat2: ' + _this.lat + ', lon: ' + _this.lon);
         });
     };
     MapPage.prototype.setlat = function (lat) {
@@ -129,33 +117,55 @@ var MapPage = (function () {
             _this.setlat(+pos.coords.latitude);
             _this.setlon(+pos.coords.longitude);
             console.log('lat3: ' + _this.lat + ', lon: ' + _this.lon);
-            /*
-                        this.geolocation.getCurrentPosition().then(pos => {
-                            this.currentLoc.lat = pos.coords.latitude;
-                            this.currentLoc.lon = pos.coords.longitude;
-                            this.currentLoc.timestamp = pos.timestamp;
-                            console.log('lat2: ' + this.currentLoc.lat + ', lon: ' + this.currentLoc.lon);
-
-
-                            this.setlat(+pos.coords.latitude);
-                            this.setlon(+pos.coords.longitude);
-
-                            console.log('lat3: ' + this.lat + ', lon: ' + this.lon);
-                    });*/
             _this.map = new google.maps.Map(document.getElementById('map_canvas'), {
                 zoom: minZoomLevel,
                 minZoom: 17,
                 maxZoom: 19,
                 center: new google.maps.LatLng(_this.lat, _this.lon),
-                mapTypeControl: false,
+                mapTypeControl: true,
                 streetViewControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
+            });
+            var mylatlng = { lat: _this.lat, lng: _this.lon };
+            var contentString = '<div style="width: 200px">' +
+                '<div id="siteNotice">' +
+                '</div>' +
+                '<h1 id="firstHeading" class="firstHeading">Uluru</h1>' +
+                '<div id="bodyContent">' +
+                '<p><b>Uluru</b>, also referred to as <b>Ayers Rock</b>, is a large ' +
+                'sandstone rock formation in the southern part of the ' +
+                'Northern Territory, central Australia. It lies 335&#160;km (208&#160;mi) ' +
+                'features of the Uluru - Kata Tjuta National Park. Uluru is ' +
+                '</div>' +
+                '</div>';
+            var infowindow = new google.maps.InfoWindow({
+                content: contentString
+            });
+            var MyPosIcon = 'https://cdn1.iconfinder.com/data/icons/hawcons/32/';
+            var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
+            var icons = {
+                me: {
+                    icon: MyPosIcon + '698847-icon-12-mail-add-48.png'
+                },
+                memo: {
+                    icon: MemoPosIcon + 'library_maps.png'
+                }
+            };
+            _this.posmarker = new google.maps.Marker({
+                position: mylatlng,
+                map: _this.map,
+                title: 'Your Position',
+                icon: icons.me.icon
+            });
+            _this.posmarker.addListener('click', function () {
+                infowindow.open(this.map, this.posmarker);
+                infowindow.setPosition(mylatlng);
             });
         });
     };
     MapPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-map',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/'<!--\n  Generated template for the MapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Map</ion-title>\n  </ion-navbar>\n\n</ion-header>\n-->\n\n<ion-content no-border="true">\n  <div id="map_canvas">\n  </div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/,
+            selector: 'page-map',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/'<!--\n  Generated template for the MapPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Map</ion-title>\n  </ion-navbar>\n\n</ion-header>\n-->\n\n<ion-content no-border="true">\n  <div id="map_canvas"></div>\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\map\map.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
     ], MapPage);
