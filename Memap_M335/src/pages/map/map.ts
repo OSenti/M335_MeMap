@@ -84,6 +84,7 @@ export class MapPage implements OnInit{
                 mapTypeControl: true,
                 streetViewControl: false,
                 zoomControl: false,
+                overviewMapControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
