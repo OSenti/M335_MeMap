@@ -91,6 +91,7 @@ export class MapPage implements OnInit{
             var mylatlng = {lat: this.lat, lng: this.lon};
 
 
+
             var contentString = '<div style="width: 500px">'+
                 '<div id="siteNotice">'+
                 '</div>'+
