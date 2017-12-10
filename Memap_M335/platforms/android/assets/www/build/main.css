@@ -25685,6 +25685,9 @@ ion-navbar.toolbar {
 
 #addBtn {
   position: absolute;
+  -webkit-box-shadow: 5px 5px 5px #777777;
+  box-shadow: 5px 5px 5px #777777;
+  border-radius: 65px;
   right: 10px;
   bottom: 20px;
   width: 65px;
