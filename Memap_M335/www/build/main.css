@@ -25685,12 +25685,11 @@ ion-navbar.toolbar {
 
 #addBtn {
   position: absolute;
-  -webkit-box-shadow: 5px 5px 5px #777777;
-  box-shadow: 5px 5px 5px #777777;
-  border-radius: 65px;
+  -webkit-box-shadow: 2px 2px 5px #777777;
+  box-shadow: 2px 2px 5px #777777;
+  border-radius: 100px;
   right: 10px;
   bottom: 20px;
-  width: 65px;
-  height: 65px;
-  background-color: transparent;
+  width: 45px;
+  height: 45px;
 }

@@ -19,7 +19,7 @@ let currentLoc: CurrentLoc;
 @IonicPage()
 @Component({
   selector: 'page-map',
-  templateUrl: 'map.html',
+  templateUrl: 'map.html'
 })
 export class MapPage implements OnInit{
 
@@ -83,35 +83,13 @@ export class MapPage implements OnInit{
                 center: new google.maps.LatLng(this.lat, this.lon),
                 mapTypeControl: true,
                 streetViewControl: false,
+                fullscreenControl: false,
                 zoomControl: false,
                 overviewMapControl: false,
                 mapTypeId: google.maps.MapTypeId.ROADMAP
             });
 
             var mylatlng = {lat: this.lat, lng: this.lon};
-
-
-            var contentString = '<div style="width: 500px">'+
-                '<div id="siteNotice">'+
-                '</div>'+
-                '<h1 id="firstHeading" class="firstHeading">Add new Memo</h1>'+
-                '<div id="bodyContent">'+
-                '<p><h1>Test</h1>' +
-                '<form method="post">' +
-                '<ion-item>' +
-                '<ion-label color="primary">Inline Label</ion-label>'+
-                '<ion-input placeholder="Text Input"></ion-input>'+
-                '</ion-item>' +
-                '<button ion-button type="submit" block>Add User</button>' +
-                '</form>' +
-                '</p>'+
-                '</div>'+
-                '</div>';
-
-            var infowindow = new google.maps.InfoWindow({
-                content: contentString
-            });
-
 
             var MyPosIcon = 'https://cdn2.iconfinder.com/data/icons/snipicons/500/';
             var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
@@ -131,14 +109,11 @@ export class MapPage implements OnInit{
                title: 'Your Position',
                icon: icons.me.icon
             });
-
-            this.posmarker.addListener('click', function() {
-
-                infowindow.open(this.map, this.posmarker);
-                infowindow.setPosition(mylatlng);
-
-            });
-
         });
     }
+
+    addMemo(){
+      this.navCtrl.push("AddMemoPage");
+    }
+
 }
