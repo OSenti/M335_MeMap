@@ -46,7 +46,7 @@ var LoginPageModule = (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_angularfire2_auth__ = __webpack_require__(211);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(104);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__tabs_tabs__ = __webpack_require__(212);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -112,19 +112,28 @@ var LoginPage = (function () {
     }
     LoginPage.prototype.login = function (user) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             var result;
             return __generator(this, function (_a) {
-                try {
-                    result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-                    this.toast.create({
-                        message: "Sie sind nun erfolgreich engeloggt!",
-                        duration: 3000
+                result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
+                    .then(function () {
+                    _this.toast.create({
+                        message: "Sie sind nun eingeloggt!",
+                        duration: 3000,
+                        position: 'top',
+                        showCloseButton: true
                     }).present();
-                    this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */]);
-                }
-                catch (e) {
-                    console.error(e);
-                }
+                    console.log(result);
+                    _this.navCtrl.setRoot(__WEBPACK_IMPORTED_MODULE_3__tabs_tabs__["a" /* TabsPage */]);
+                }, function (error) {
+                    console.error(result);
+                    _this.toast.create({
+                        message: "Etwas stimmt mit Ihren Eingaben nicht!",
+                        duration: 3000,
+                        position: 'top',
+                        showCloseButton: true
+                    }).present();
+                });
                 return [2 /*return*/];
             });
         });
