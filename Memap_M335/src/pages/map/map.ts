@@ -1,11 +1,22 @@
 import {Component, OnInit} from "@angular/core";
-import { IonicPage, NavController, NavParams, Platform } from 'ionic-angular';
+import { IonicPage, NavController, Platform } from 'ionic-angular';
+
+import {Inject} from "@angular/core";
 
 import {google} from 'google-maps';
 import { Geolocation } from '@ionic-native/geolocation';
 import { CurrentLoc } from '../../interfaces/current-loc';
 
+import { AddMemoPage} from "../add-memo/add-memo";
+import {AngularFireDatabase} from "angularfire2/database-deprecated";
+import {AngularFireAuth} from "angularfire2/auth";
+
+import {AddMemo} from "../add-memo/services/addMemo";
+
+import {ViewChild} from "@angular/core";
+
 import {FirebaseProvider} from "../../providers/firebase/firebase";
+import * as firebase from "firebase";
 
 
 let currentLoc: CurrentLoc;
@@ -23,6 +34,7 @@ let currentLoc: CurrentLoc;
 })
 export class MapPage implements OnInit{
 
+    @ViewChild('Nav') nav: NavController;
 
     lat: number;
     lon: number;
@@ -53,9 +65,10 @@ export class MapPage implements OnInit{
 
   map: google.maps.Map;
   posmarker: google.maps.Marker;
+  memomarker: google.maps.Marker;
   currentLoc: CurrentLoc = {lat:0 , lon: 0};
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, public platform: Platform, public geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public platform: Platform, public geolocation: Geolocation, public db: AngularFireDatabase, public Auth: AngularFireAuth, public Memoinfo: AddMemo) {
       this.map = null;
       this.posmarker = null;
   }
@@ -113,7 +126,12 @@ export class MapPage implements OnInit{
     }
 
     addMemo(){
-      this.navCtrl.push("AddMemoPage");
-    }
+      this.Memoinfo.map = this.map;
+      this.Memoinfo.lat = this.lat;
+      this.Memoinfo.lng = this.lon;
+      this.Memoinfo.latlng = {lat: this.lat, lng: this.lon};
 
+
+      this.navCtrl.push(AddMemoPage);
+    }
 }

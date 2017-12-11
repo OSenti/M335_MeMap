@@ -34,7 +34,14 @@
     "cordova-plugin-googlemaps": {
       "API_KEY_FOR_ANDROID": "AIzaSyBWoReQi_KtXVsxiq3oS9BaiBjRLxlTrqg",
       "PACKAGE_NAME": "io.ionic.starter"
+    },
+    "cordova-plugin-media": {
+      "PACKAGE_NAME": "io.ionic.starter"
     }
   },
-  "dependent_plugins": {}
+  "dependent_plugins": {
+    "cordova-plugin-file": {
+      "PACKAGE_NAME": "io.ionic.starter"
+    }
+  }
 }
