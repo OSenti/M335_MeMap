@@ -6,6 +6,8 @@ import { CATCH_STACK_VAR } from '@angular/compiler/src/output/output_ast';
 import { HomePage } from '../home/home';
 import { ToastController } from 'ionic-angular';
 import  {TabsPage } from '../tabs/tabs'
+import { errorHandler } from '@angular/platform-browser/src/browser';
+import { Toast } from 'ionic-angular/components/toast/toast';
 /**
  * Generated class for the LoginPage page.
  *
@@ -28,21 +30,38 @@ export class LoginPage {
 
   async login(user: User)
   {
-    try
-    {
-      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password);
-      this.toast.create
-      ({
-        message: "Sie sind nun erfolgreich eingeloggt!",
-        duration: 3000
-      }).present()
-      this.navCtrl.setRoot(TabsPage);
-    }
-    catch(e)
-    {
-      console.error(e);
+    
+      const result = this.afAuth.auth.signInWithEmailAndPassword(user.email, user.password)
+      .then(() => 
+      {
+        this.toast.create(
+          {
+            message: "Sie sind nun eingeloggt!",
+            duration: 3000,
+            position: 'top',
+            showCloseButton: true
+          }).present();
+        console.log(result);
+        this.navCtrl.setRoot(TabsPage);
 
-    }
+      },
+      error =>
+      {
+        console.error(result);        
+        this.toast.create(
+        {
+          message: "Etwas stimmt mit Ihren Eingaben nicht!",
+          duration: 3000,
+          position: 'top',
+          showCloseButton: true
+        }).present();
+      });
+      
+
+      
+      
+        
+        
   }
 
   register()
