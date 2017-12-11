@@ -25682,6 +25682,10 @@ ion-navbar.toolbar {
   margin-top: 12px;
 }
 
+.inputField {
+  margin-top: 16px;
+}
+
 #map_canvas {
   width: 100%;
   height: 100%;
@@ -25701,4 +25705,8 @@ ion-navbar.toolbar {
 
 .btn {
   margin-top: 12px;
+}
+
+.inputField {
+  margin-top: 16px;
 }
