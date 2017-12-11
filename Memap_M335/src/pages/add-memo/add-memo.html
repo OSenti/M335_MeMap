@@ -15,4 +15,20 @@
 
 <ion-content padding>
 
+  <ion-item>
+    <ion-label>Memo-Name:</ion-label>
+    <ion-input name="memotitle" type="text" [(ngModel)]="item.name" required="true"></ion-input>
+  </ion-item>
+
+  <ion-item>
+    <h1>Aufnahme</h1>
+    <button ion-fab strong color="dark" (click)="startRecording()" [disabled]="audioRecorder.state != AudioRecorderState.Ready" class="recBtn"><ion-icon name="md-mic"></ion-icon></button>
+    <button ion-fab strong color="danger" (click)="stopRecording()" [disabled]="audioRecorder.state != AudioRecorderState.Recording" class="recBtn"><ion-icon name="md-square"></ion-icon></button>
+    <h1>Leiste</h1>
+    <button ion-fab strong color="secondary" (click)="startPlayback()" [disabled]="audioRecorder.state != AudioRecorderState.Recorded" class="recBtn"><ion-icon name="md-play"></ion-icon></button>
+    <button ion-fab strong color="secondary" (click)="stopPlayback()" [disabled]="audioRecorder.state != AudioRecorderState.Playing" class="recBtn"><ion-icon name="md-pause"></ion-icon></button>
+  </ion-item>
+
+  <button class="btn" ion-button full outline (click)="submitMemo(item)">Memo setzen</button>
+
 </ion-content>

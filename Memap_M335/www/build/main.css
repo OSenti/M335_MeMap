@@ -25678,6 +25678,18 @@ ion-navbar.toolbar {
   min-height: calc(46px + env(safe-area-inset-bottom));
 }
 
+.recBtn {
+  -webkit-box-shadow: 2px 2px 5px #777777;
+  box-shadow: 2px 2px 5px #777777;
+  border-radius: 100px;
+  display: inline-block;
+  margin-right: 170px;
+  margin-bottom: 10px;
+  margin-top: 10px;
+  width: 45px;
+  height: 45px;
+}
+
 .btn {
   margin-top: 12px;
 }
