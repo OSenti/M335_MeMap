@@ -52,7 +52,8 @@ var ChatsPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MapPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(0);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(32);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(168);
+throw new Error("Cannot find module \"google-maps\"");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__ = __webpack_require__(168);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -62,6 +63,7 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+
 
 
 
@@ -117,16 +119,16 @@ var MapPage = (function () {
             _this.setlat(+pos.coords.latitude);
             _this.setlon(+pos.coords.longitude);
             console.log('lat3: ' + _this.lat + ', lon: ' + _this.lon);
-            _this.map = new google.maps.Map(document.getElementById('map_canvas'), {
+            _this.map = new __WEBPACK_IMPORTED_MODULE_2_google_maps__["google"].maps.Map(document.getElementById('map_canvas'), {
                 zoom: minZoomLevel,
                 minZoom: 17,
                 maxZoom: 19,
-                center: new google.maps.LatLng(_this.lat, _this.lon),
+                center: new __WEBPACK_IMPORTED_MODULE_2_google_maps__["google"].maps.LatLng(_this.lat, _this.lon),
                 mapTypeControl: true,
                 streetViewControl: false,
                 zoomControl: false,
                 overviewMapControl: false,
-                mapTypeId: google.maps.MapTypeId.ROADMAP
+                mapTypeId: __WEBPACK_IMPORTED_MODULE_2_google_maps__["google"].maps.MapTypeId.ROADMAP
             });
             var mylatlng = { lat: _this.lat, lng: _this.lon };
             var contentString = '<div style="width: 500px">' +
@@ -145,7 +147,7 @@ var MapPage = (function () {
                 '</p>' +
                 '</div>' +
                 '</div>';
-            var infowindow = new google.maps.InfoWindow({
+            var infowindow = new __WEBPACK_IMPORTED_MODULE_2_google_maps__["google"].maps.InfoWindow({
                 content: contentString
             });
             var MyPosIcon = 'https://cdn2.iconfinder.com/data/icons/snipicons/500/';
@@ -158,7 +160,7 @@ var MapPage = (function () {
                     icon: MemoPosIcon
                 }
             };
-            _this.posmarker = new google.maps.Marker({
+            _this.posmarker = new __WEBPACK_IMPORTED_MODULE_2_google_maps__["google"].maps.Marker({
                 position: mylatlng,
                 map: _this.map,
                 title: 'Your Position',
@@ -174,9 +176,10 @@ var MapPage = (function () {
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
             selector: 'page-map',template:/*ion-inline-start:"C:\Users\Pc\Documents\GitHub\M335_MeMapV2\Memap_M335\src\pages\map\map.html"*/'<!--\n\n  Generated template for the MapPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>Map</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n-->\n\n\n\n<ion-content no-border="true">\n\n  <div id="map_canvas"></div>\n\n\n\n  <ion-img id="addBtn" src="https://cdn4.iconfinder.com/data/icons/web-ui-color/128/Plus-256.png"></ion-img>\n\n\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\Pc\Documents\GitHub\M335_MeMapV2\Memap_M335\src\pages\map\map.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */], __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__["a" /* Geolocation */]])
+        __metadata("design:paramtypes", [typeof (_a = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["e" /* NavController */]) === "function" && _a || Object, typeof (_b = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavParams */]) === "function" && _b || Object, typeof (_c = typeof __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* Platform */]) === "function" && _c || Object, typeof (_d = typeof __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */] !== "undefined" && __WEBPACK_IMPORTED_MODULE_3__ionic_native_geolocation__["a" /* Geolocation */]) === "function" && _d || Object])
     ], MapPage);
     return MapPage;
+    var _a, _b, _c, _d;
 }());
 
 //# sourceMappingURL=map.js.map
