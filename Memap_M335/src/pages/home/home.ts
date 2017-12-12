@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { NavController } from 'ionic-angular';
+import { NavController, NavParams } from 'ionic-angular';
 import {AddMemo} from "../add-memo/services/addMemo";
 import {Observable} from "rxjs/Observable";
 import {MemoItem} from "../add-memo/models/addMemo.interface";

@@ -13,6 +13,7 @@ import {google} from "google-maps";
 import {Observable} from "rxjs/Observable";
 import {AddMemo} from "./services/addMemo";
 import {MemoItem} from "./models/addMemo.interface";
+import {Media, MediaObject} from "@ionic-native/media";
 
 
 /**
@@ -37,27 +38,29 @@ export class AddMemoPage {
         lng: this.mapService.lng
     };
 
-    media: MediaPlugin;
     AudioRecorderState = AudioRecorderState;
 
 
-    constructor(public navCtrl: NavController, public alertCtrl: AlertController, public audioRecorder: AudioRecorder, public afAuth: AngularFireAuth, public database: AngularFireDatabase, public mapService: AddMemo) {
+    constructor(public navCtrl: NavController, public alertCtrl: AlertController, public media: Media, public afAuth: AngularFireAuth, public database: AngularFireDatabase, public mapService: AddMemo) {
+
 
 
     }
 
-/*
+
+    file: MediaObject = this.media.create('../../../www/assets/audio' + this.mapService.content + '.mp3');
+
     ionViewDidLoad() {
         console.log('ionViewDidLoad AddMemoPage');
-    }*/
+    }
 
     ionViewDidEnter() {
-        this.media = new MediaPlugin('Recs/recording.wav');
+        console.log('Wanna Add a Memo?')
     }
 
     startRecording() {
         try {
-            this.audioRecorder.startRecording();
+            this.file.startRecord();
         }
         catch (e) {
             this.showAlert('Could not start recording.');
@@ -66,7 +69,7 @@ export class AddMemoPage {
 
     stopRecording() {
         try {
-            this.audioRecorder.stopRecording();
+            this.file.stopRecord();
         }
         catch (e) {
             this.showAlert('Could not stop recording.');
@@ -75,7 +78,8 @@ export class AddMemoPage {
 
     startPlayback() {
         try {
-            this.audioRecorder.startPlayback();
+            this.file.setVolume(0.7);
+            this.file.play();
         }
         catch (e) {
             this.showAlert('Could not play recording.');
@@ -84,7 +88,7 @@ export class AddMemoPage {
 
     stopPlayback() {
         try {
-            this.audioRecorder.stopPlayback();
+            this.file.resumeRecord();
         }
         catch (e) {
             this.showAlert('Could not stop playing recording.');
@@ -107,8 +111,14 @@ export class AddMemoPage {
             console.log(ref.key);
 
         });
+
+        this.mapService.content = memoItem.name;
+
+
         this.mapService.addMemoMarker();
 
         this.navCtrl.pop();
+
+        this.mapService.getInitialization();
     }
 }

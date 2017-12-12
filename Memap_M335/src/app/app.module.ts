@@ -25,6 +25,10 @@ import {ViewChild} from "@angular/core";
 import {AddMemo} from "../pages/add-memo/services/addMemo";
 import {AddMemoPage} from "../pages/add-memo/add-memo";
 
+import {NgModel} from "@angular/forms";
+import {MediaPlugin} from "ionic-native";
+import {Media} from "@ionic-native/media";
+
 
 @NgModule({
   declarations: [
@@ -57,10 +61,11 @@ import {AddMemoPage} from "../pages/add-memo/add-memo";
     SplashScreen,
     Geolocation,
     AddMemo,
-    AudioRecorder,
     AngularFireDatabase,
     AngularFireAuth,
-      AddMemoPage,
+    AddMemoPage,
+    NgModel,
+    Media,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

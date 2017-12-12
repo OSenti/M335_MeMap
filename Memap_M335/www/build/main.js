@@ -1,59 +1,4 @@
-webpackJsonp([5],{
-
-/***/ 111:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddMemo; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angularfire2_auth__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__ = __webpack_require__(165);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var AddMemo = (function () {
-    function AddMemo(alertCtrl, Auth, db) {
-        this.alertCtrl = alertCtrl;
-        this.Auth = Auth;
-        this.db = db;
-        this.memoListRef = this.db.list('/memos/');
-        this.userId = this.Auth.auth.currentUser;
-    }
-    AddMemo.prototype.getMemoList = function () {
-        return this.memoListRef;
-    };
-    AddMemo.prototype.addMemoData = function (memoitem) {
-        return this.memoListRef.push(memoitem);
-    };
-    AddMemo.prototype.addMemoMarker = function () {
-        this.marker = new google.maps.Marker({
-            position: this.latlng,
-            map: this.map,
-            title: this.content,
-            icon: this.memoicon
-        });
-    };
-    AddMemo = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_0_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */]])
-    ], AddMemo);
-    return AddMemo;
-}());
-
-//# sourceMappingURL=addMemo.js.map
-
-/***/ }),
+webpackJsonp([6],{
 
 /***/ 196:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
@@ -62,11 +7,11 @@ var AddMemo = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddMemoPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_audiorecorder__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_ionic_native__ = __webpack_require__(255);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_database__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__services_addMemo__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__services_audiorecorder__ = __webpack_require__(602);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_addMemo__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__ionic_native_media__ = __webpack_require__(525);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -90,10 +35,10 @@ var __metadata = (this && this.__metadata) || function (k, v) {
  * Ionic pages and navigation.
  */
 var AddMemoPage = (function () {
-    function AddMemoPage(navCtrl, alertCtrl, audioRecorder, afAuth, database, mapService) {
+    function AddMemoPage(navCtrl, alertCtrl, media, afAuth, database, mapService) {
         this.navCtrl = navCtrl;
         this.alertCtrl = alertCtrl;
-        this.audioRecorder = audioRecorder;
+        this.media = media;
         this.afAuth = afAuth;
         this.database = database;
         this.mapService = mapService;
@@ -102,18 +47,18 @@ var AddMemoPage = (function () {
             lat: this.mapService.lat,
             lng: this.mapService.lng
         };
-        this.AudioRecorderState = __WEBPACK_IMPORTED_MODULE_2__services_audiorecorder__["b" /* AudioRecorderState */];
+        this.AudioRecorderState = __WEBPACK_IMPORTED_MODULE_2__services_audiorecorder__["a" /* AudioRecorderState */];
+        this.file = this.media.create('../../../www/assets/audio' + this.mapService.content + '.mp3');
     }
-    /*
-        ionViewDidLoad() {
-            console.log('ionViewDidLoad AddMemoPage');
-        }*/
+    AddMemoPage.prototype.ionViewDidLoad = function () {
+        console.log('ionViewDidLoad AddMemoPage');
+    };
     AddMemoPage.prototype.ionViewDidEnter = function () {
-        this.media = new __WEBPACK_IMPORTED_MODULE_3_ionic_native__["a" /* MediaPlugin */]('Recs/recording.wav');
+        console.log('Wanna Add a Memo?');
     };
     AddMemoPage.prototype.startRecording = function () {
         try {
-            this.audioRecorder.startRecording();
+            this.file.startRecord();
         }
         catch (e) {
             this.showAlert('Could not start recording.');
@@ -121,7 +66,7 @@ var AddMemoPage = (function () {
     };
     AddMemoPage.prototype.stopRecording = function () {
         try {
-            this.audioRecorder.stopRecording();
+            this.file.stopRecord();
         }
         catch (e) {
             this.showAlert('Could not stop recording.');
@@ -129,7 +74,8 @@ var AddMemoPage = (function () {
     };
     AddMemoPage.prototype.startPlayback = function () {
         try {
-            this.audioRecorder.startPlayback();
+            this.file.setVolume(0.7);
+            this.file.play();
         }
         catch (e) {
             this.showAlert('Could not play recording.');
@@ -137,7 +83,7 @@ var AddMemoPage = (function () {
     };
     AddMemoPage.prototype.stopPlayback = function () {
         try {
-            this.audioRecorder.stopPlayback();
+            this.file.resumeRecord();
         }
         catch (e) {
             this.showAlert('Could not stop playing recording.');
@@ -155,14 +101,16 @@ var AddMemoPage = (function () {
         this.mapService.addMemoData(memoItem).then(function (ref) {
             console.log(ref.key);
         });
+        this.mapService.content = memoItem.name;
         this.mapService.addMemoMarker();
         this.navCtrl.pop();
+        this.mapService.getInitialization();
     };
     AddMemoPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-add-memo',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\add-memo\add-memo.html"*/'<!--\n\n  Generated template for the AddMemoPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>AddMemo</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n\n\n  <ion-item>\n\n    <ion-label>Memo-Name:</ion-label>\n\n    <ion-input name="memotitle" type="text" [(ngModel)]="item.name" required="true"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <h1>Aufnahme</h1>\n\n    <button ion-fab strong color="dark" (click)="startRecording()" [disabled]="audioRecorder.state != AudioRecorderState.Ready" class="recBtn"><ion-icon name="md-mic"></ion-icon></button>\n\n    <button ion-fab strong color="danger" (click)="stopRecording()" [disabled]="audioRecorder.state != AudioRecorderState.Recording" class="recBtn"><ion-icon name="md-square"></ion-icon></button>\n\n    <h1>Leiste</h1>\n\n    <button ion-fab strong color="secondary" (click)="startPlayback()" [disabled]="audioRecorder.state != AudioRecorderState.Recorded" class="recBtn"><ion-icon name="md-play"></ion-icon></button>\n\n    <button ion-fab strong color="secondary" (click)="stopPlayback()" [disabled]="audioRecorder.state != AudioRecorderState.Playing" class="recBtn"><ion-icon name="md-pause"></ion-icon></button>\n\n  </ion-item>\n\n\n\n  <button class="btn" ion-button full outline (click)="submitMemo(item)">Memo setzen</button>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\add-memo\add-memo.html"*/,
+            selector: 'page-add-memo',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\add-memo\add-memo.html"*/'<!--\n\n  Generated template for the AddMemoPage page.\n\n\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n\n  Ionic pages and navigation.\n\n-->\n\n<ion-header>\n\n\n\n  <ion-navbar>\n\n    <ion-title>AddMemo</ion-title>\n\n  </ion-navbar>\n\n\n\n</ion-header>\n\n\n\n\n\n<ion-content padding>\n\n\n\n  <ion-item>\n\n    <ion-label>Memo-Name:</ion-label>\n\n    <ion-input name="memotitle" type="text" [(ngModel)]="item.name" required="true"></ion-input>\n\n  </ion-item>\n\n\n\n  <ion-item>\n\n    <h1>Aufnahme</h1>\n\n    <button ion-fab strong color="dark" (click)="startRecording()"  class="recBtn"><ion-icon name="md-mic"></ion-icon></button>\n\n    <button ion-fab strong color="danger" (click)="stopRecording()" class="recBtn"><ion-icon name="md-square"></ion-icon></button>\n\n    <h1>Leiste</h1>\n\n    <button ion-fab strong color="secondary" (click)="startPlayback()" class="recBtn"><ion-icon name="md-play"></ion-icon></button>\n\n    <button ion-fab strong color="secondary" (click)="stopPlayback()" class="recBtn"><ion-icon name="md-pause"></ion-icon></button>\n\n  </ion-item>\n\n\n\n  <button class="btn" ion-button full outline (click)="submitMemo(item)">Memo setzen</button>\n\n\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\add-memo\add-memo.html"*/,
         }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_2__services_audiorecorder__["a" /* AudioRecorder */], __WEBPACK_IMPORTED_MODULE_4_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_5_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_6__services_addMemo__["a" /* AddMemo */]])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_6__ionic_native_media__["a" /* Media */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_4_angularfire2_database__["a" /* AngularFireDatabase */], __WEBPACK_IMPORTED_MODULE_5__services_addMemo__["a" /* AddMemo */]])
     ], AddMemoPage);
     return AddMemoPage;
 }());
@@ -205,7 +153,7 @@ var ChatsPage = (function () {
     };
     ChatsPage = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-chats',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\chats\chats.html"*/'<!--\n  Generated template for the ChatsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Chats</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\chats\chats.html"*/,
+            selector: 'page-chats',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\chats\chats.html"*/'<!--\n  Generated template for the ChatsPage page.\n\n  See http://ionicframework.com/docs/components/#navigation for more info on\n  Ionic pages and navigation.\n-->\n<ion-header>\n\n  <ion-navbar>\n    <ion-title>Chats</ion-title>\n  </ion-navbar>\n\n</ion-header>\n\n\n<ion-content padding>\n  <h1>Coming Soon!</h1>\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\chats\chats.html"*/,
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_1_ionic_angular__["g" /* NavParams */]])
     ], ChatsPage);
@@ -223,11 +171,11 @@ var ChatsPage = (function () {
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MapPage; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(526);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_geolocation__ = __webpack_require__(527);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__add_memo_add_memo__ = __webpack_require__(196);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4_angularfire2_database_deprecated__ = __webpack_require__(528);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_5_angularfire2_auth__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__add_memo_services_addMemo__ = __webpack_require__(111);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__add_memo_services_addMemo__ = __webpack_require__(82);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -263,6 +211,7 @@ var MapPage = (function () {
         this.currentLoc = { lat: 0, lon: 0 };
         this.map = null;
         this.posmarker = null;
+        this.Memoinfo.Initialization = this.initializeMap();
     }
     MapPage.prototype.ngOnInit = function () {
         var _this = this;
@@ -313,7 +262,7 @@ var MapPage = (function () {
             });
             var mylatlng = { lat: _this.lat, lng: _this.lon };
             var MyPosIcon = 'https://cdn2.iconfinder.com/data/icons/snipicons/500/';
-            var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
+            var MemoPosIcon = 'https://cdn.pixabay.com/photo/2013/07/13/01/09/map-155198_960_720.png';
             var icons = {
                 me: {
                     icon: MyPosIcon + 'map-marker-48.png'
@@ -335,6 +284,7 @@ var MapPage = (function () {
         this.Memoinfo.lat = this.lat;
         this.Memoinfo.lng = this.lon;
         this.Memoinfo.latlng = { lat: this.lat, lng: this.lon };
+        this.Memoinfo.memoicon = 'https://cdn0.iconfinder.com/data/icons/mtt-web-icons/139/microphone-48.png';
         this.navCtrl.push(__WEBPACK_IMPORTED_MODULE_3__add_memo_add_memo__["a" /* AddMemoPage */]);
     };
     __decorate([
@@ -354,7 +304,7 @@ var MapPage = (function () {
 
 /***/ }),
 
-/***/ 209:
+/***/ 210:
 /***/ (function(module, exports) {
 
 function webpackEmptyAsyncContext(req) {
@@ -367,32 +317,36 @@ function webpackEmptyAsyncContext(req) {
 webpackEmptyAsyncContext.keys = function() { return []; };
 webpackEmptyAsyncContext.resolve = webpackEmptyAsyncContext;
 module.exports = webpackEmptyAsyncContext;
-webpackEmptyAsyncContext.id = 209;
+webpackEmptyAsyncContext.id = 210;
 
 /***/ }),
 
-/***/ 253:
+/***/ 254:
 /***/ (function(module, exports, __webpack_require__) {
 
 var map = {
 	"../pages/add-memo/add-memo.module": [
-		960,
-		4
+		961,
+		5
 	],
 	"../pages/chats/chats.module": [
-		961,
-		3
-	],
-	"../pages/login/login.module": [
 		962,
-		1
+		4
 	],
-	"../pages/map/map.module": [
+	"../pages/edit-memo/edit-memo.module": [
 		963,
 		2
 	],
-	"../pages/register/register.module": [
+	"../pages/login/login.module": [
 		964,
+		1
+	],
+	"../pages/map/map.module": [
+		965,
+		3
+	],
+	"../pages/register/register.module": [
+		966,
 		0
 	]
 };
@@ -407,18 +361,236 @@ function webpackAsyncContext(req) {
 webpackAsyncContext.keys = function webpackAsyncContextKeys() {
 	return Object.keys(map);
 };
-webpackAsyncContext.id = 253;
+webpackAsyncContext.id = 254;
 module.exports = webpackAsyncContext;
 
 /***/ }),
 
-/***/ 254:
+/***/ 535:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AudioRecorder; });
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "b", function() { return AudioRecorderState; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_native__ = __webpack_require__(255);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__add_memo_services_addMemo__ = __webpack_require__(82);
+var __assign = (this && this.__assign) || Object.assign || function(t) {
+    for (var s, i = 1, n = arguments.length; i < n; i++) {
+        s = arguments[i];
+        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
+            t[p] = s[p];
+    }
+    return t;
+};
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var HomePage = (function () {
+    function HomePage(navCtrl, memos) {
+        this.navCtrl = navCtrl;
+        this.memos = memos;
+        this.memos$ = this.memos
+            .getMemoList()
+            .snapshotChanges()
+            .map(function (changes) {
+            return changes.map(function (c) { return (__assign({ key: c.payload.key }, c.payload.val())); });
+        });
+    }
+    HomePage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
+            selector: 'page-home',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\home\home.html"*/'<ion-header>\n\n  <ion-navbar>\n\n    <ion-title>Home</ion-title>\n\n  </ion-navbar>\n\n</ion-header>\n\n\n\n<ion-content padding>\n\n  <ion-list>\n\n    <ion-list-header>\n\n      Deine Memos:\n\n    </ion-list-header>\n\n    <ion-item *ngFor="let item of memos$ | async"\n\n    detail-push navPush="EditMemoPage" [navParams]="{item: item}">\n\n      {{item.name}}<p style="color: darkgray; float: right">[Touch to edit]</p>\n\n    </ion-item>\n\n  </ion-list>\n\n</ion-content>\n\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\home\home.html"*/
+        }),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__add_memo_services_addMemo__["a" /* AddMemo */]])
+    ], HomePage);
+    return HomePage;
+}());
+
+//# sourceMappingURL=home.js.map
+
+/***/ }),
+
+/***/ 576:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__map_map__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__chats_chats__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(535);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+
+var TabsPage = (function () {
+    function TabsPage() {
+        this.tab1Root = __WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */];
+        this.tab2Root = __WEBPACK_IMPORTED_MODULE_1__map_map__["a" /* MapPage */];
+        this.tab3Root = __WEBPACK_IMPORTED_MODULE_2__chats_chats__["a" /* ChatsPage */];
+    }
+    TabsPage = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\tabs\tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="ios-home-outline"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Map" tabIcon="ios-pin-outline"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Chats" tabIcon="ios-chatbubbles-outline"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\tabs\tabs.html"*/
+        }),
+        __metadata("design:paramtypes", [])
+    ], TabsPage);
+    return TabsPage;
+}());
+
+//# sourceMappingURL=tabs.js.map
+
+/***/ }),
+
+/***/ 577:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(578);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(582);
+
+
+Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
+//# sourceMappingURL=main.js.map
+
+/***/ }),
+
+/***/ 582:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(53);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(46);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(959);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_map_map__ = __webpack_require__(198);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_chats_chats__ = __webpack_require__(197);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(535);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__ = __webpack_require__(576);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(574);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(575);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_geolocation__ = __webpack_require__(527);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angularfire2__ = __webpack_require__(36);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_firebase_config__ = __webpack_require__(960);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__ = __webpack_require__(56);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14_angularfire2_database_deprecated__ = __webpack_require__(528);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angularfire2_database__ = __webpack_require__(166);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16__pages_add_memo_services_addMemo__ = __webpack_require__(82);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_add_memo_add_memo__ = __webpack_require__(196);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__angular_forms__ = __webpack_require__(32);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_19__ionic_native_media__ = __webpack_require__(525);
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+var AppModule = (function () {
+    function AppModule() {
+    }
+    AppModule = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
+            declarations: [
+                __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_4__pages_map_map__["a" /* MapPage */],
+                __WEBPACK_IMPORTED_MODULE_5__pages_chats_chats__["a" /* ChatsPage */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__["a" /* TabsPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_add_memo_add_memo__["a" /* AddMemoPage */]
+            ],
+            imports: [
+                __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
+                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
+                    links: [
+                        { loadChildren: '../pages/add-memo/add-memo.module#AddMemoPageModule', name: 'AddMemoPage', segment: 'add-memo', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/edit-memo/edit-memo.module#EditMemoPageModule', name: 'EditMemoPage', segment: 'edit-memo', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/map/map.module#MapPageModule', name: 'MapPage', segment: 'map', priority: 'low', defaultHistory: [] },
+                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] }
+                    ]
+                }),
+                __WEBPACK_IMPORTED_MODULE_11_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_12__app_firebase_config__["a" /* FIREBASE_CONFIG */]),
+                __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__["b" /* AngularFireAuthModule */],
+                __WEBPACK_IMPORTED_MODULE_15_angularfire2_database__["b" /* AngularFireDatabaseModule */]
+            ],
+            bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
+            entryComponents: [
+                __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
+                __WEBPACK_IMPORTED_MODULE_4__pages_map_map__["a" /* MapPage */],
+                __WEBPACK_IMPORTED_MODULE_5__pages_chats_chats__["a" /* ChatsPage */],
+                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */],
+                __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__["a" /* TabsPage */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_add_memo_add_memo__["a" /* AddMemoPage */]
+            ],
+            providers: [
+                __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__["a" /* StatusBar */],
+                __WEBPACK_IMPORTED_MODULE_4__pages_map_map__["a" /* MapPage */],
+                __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__["a" /* SplashScreen */],
+                __WEBPACK_IMPORTED_MODULE_10__ionic_native_geolocation__["a" /* Geolocation */],
+                __WEBPACK_IMPORTED_MODULE_16__pages_add_memo_services_addMemo__["a" /* AddMemo */],
+                __WEBPACK_IMPORTED_MODULE_14_angularfire2_database_deprecated__["a" /* AngularFireDatabase */],
+                __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__["a" /* AngularFireAuth */],
+                __WEBPACK_IMPORTED_MODULE_17__pages_add_memo_add_memo__["a" /* AddMemoPage */],
+                __WEBPACK_IMPORTED_MODULE_18__angular_forms__["d" /* NgModel */],
+                __WEBPACK_IMPORTED_MODULE_19__ionic_native_media__["a" /* Media */],
+                { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] }
+            ]
+        })
+    ], AppModule);
+    return AppModule;
+}());
+
+//# sourceMappingURL=app.module.js.map
+
+/***/ }),
+
+/***/ 602:
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* unused harmony export AudioRecorder */
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AudioRecorderState; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_ionic_native__ = __webpack_require__(603);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_core__ = __webpack_require__(1);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
@@ -476,22 +648,15 @@ var AudioRecorderState;
 
 /***/ }),
 
-/***/ 535:
+/***/ 82:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return HomePage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AddMemo; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0_angularfire2_auth__ = __webpack_require__(56);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__add_memo_services_addMemo__ = __webpack_require__(111);
-var __assign = (this && this.__assign) || Object.assign || function(t) {
-    for (var s, i = 1, n = arguments.length; i < n; i++) {
-        s = arguments[i];
-        for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-            t[p] = s[p];
-    }
-    return t;
-};
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_core__ = __webpack_require__(1);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__ = __webpack_require__(166);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -504,201 +669,64 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
-var HomePage = (function () {
-    function HomePage(navCtrl, memos) {
-        this.navCtrl = navCtrl;
-        this.memos = memos;
-        this.memos$ = this.memos
-            .getMemoList()
-            .snapshotChanges()
-            .map(function (changes) {
-            return changes.map(function (c) { return (__assign({ key: c.payload.key }, c.payload.val())); });
+
+var AddMemo = (function () {
+    function AddMemo(alertCtrl, Auth, db) {
+        this.alertCtrl = alertCtrl;
+        this.Auth = Auth;
+        this.db = db;
+        this.memoListRef = this.db.list('/memos/');
+        this.userId = this.Auth.auth.currentUser;
+    }
+    AddMemo.prototype.getMemoList = function () {
+        return this.memoListRef;
+    };
+    AddMemo.prototype.addMemoData = function (memoitem) {
+        return this.memoListRef.push(memoitem);
+    };
+    AddMemo.prototype.editMemoData = function (memoitem) {
+        return this.memoListRef.update(memoitem.key, memoitem);
+    };
+    AddMemo.prototype.removeMemoData = function (memoitem) {
+        return this.memoListRef.remove(memoitem.key);
+    };
+    AddMemo.prototype.removeMarker = function (memoitem) {
+        if (this.content = memoitem.name) {
+            this.marker.setMap(null);
+        }
+    };
+    AddMemo.prototype.getInitialization = function () {
+        return this.Initialization;
+    };
+    AddMemo.prototype.addMemoMarker = function () {
+        this.marker = new google.maps.Marker({
+            position: this.latlng,
+            map: this.map,
+            title: this.content,
+            icon: this.memoicon
         });
-    }
-    HomePage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({
-            selector: 'page-home',template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\home\home.html"*/'<ion-header>\n  <ion-navbar>\n    <ion-title>Home</ion-title>\n  </ion-navbar>\n</ion-header>\n\n<ion-content padding>\n  <ion-list>\n    <ion-list-header>\n      Memos\n    </ion-list-header>\n    <ion-item *ngFor="let item of memos$ | async">\n      {{item.name}}\n    </ion-item>\n  </ion-list>\n</ion-content>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\home\home.html"*/
-        }),
-        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["f" /* NavController */], __WEBPACK_IMPORTED_MODULE_2__add_memo_services_addMemo__["a" /* AddMemo */]])
-    ], HomePage);
-    return HomePage;
+        this.marker.setMap(Map);
+    };
+    AddMemo = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1_ionic_angular__["a" /* AlertController */], __WEBPACK_IMPORTED_MODULE_0_angularfire2_auth__["a" /* AngularFireAuth */], __WEBPACK_IMPORTED_MODULE_3_angularfire2_database__["a" /* AngularFireDatabase */]])
+    ], AddMemo);
+    return AddMemo;
 }());
 
-//# sourceMappingURL=home.js.map
+//# sourceMappingURL=addMemo.js.map
 
 /***/ }),
 
-/***/ 577:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return TabsPage; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__map_map__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__chats_chats__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__home_home__ = __webpack_require__(535);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-var __metadata = (this && this.__metadata) || function (k, v) {
-    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
-};
-
-
-
-
-var TabsPage = (function () {
-    function TabsPage() {
-        this.tab1Root = __WEBPACK_IMPORTED_MODULE_3__home_home__["a" /* HomePage */];
-        this.tab2Root = __WEBPACK_IMPORTED_MODULE_1__map_map__["a" /* MapPage */];
-        this.tab3Root = __WEBPACK_IMPORTED_MODULE_2__chats_chats__["a" /* ChatsPage */];
-    }
-    TabsPage = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["m" /* Component */])({template:/*ion-inline-start:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\tabs\tabs.html"*/'<ion-tabs>\n  <ion-tab [root]="tab1Root" tabTitle="Home" tabIcon="ios-home-outline"></ion-tab>\n  <ion-tab [root]="tab2Root" tabTitle="Map" tabIcon="ios-pin-outline"></ion-tab>\n  <ion-tab [root]="tab3Root" tabTitle="Chats" tabIcon="ios-chatbubbles-outline"></ion-tab>\n</ion-tabs>\n'/*ion-inline-end:"C:\Users\olive\OneDrive\Dokumente\GitHub\M335\Memap_M335\src\pages\tabs\tabs.html"*/
-        }),
-        __metadata("design:paramtypes", [])
-    ], TabsPage);
-    return TabsPage;
-}());
-
-//# sourceMappingURL=tabs.js.map
-
-/***/ }),
-
-/***/ 578:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-Object.defineProperty(__webpack_exports__, "__esModule", { value: true });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__ = __webpack_require__(579);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__app_module__ = __webpack_require__(583);
-
-
-Object(__WEBPACK_IMPORTED_MODULE_0__angular_platform_browser_dynamic__["a" /* platformBrowserDynamic */])().bootstrapModule(__WEBPACK_IMPORTED_MODULE_1__app_module__["a" /* AppModule */]);
-//# sourceMappingURL=main.js.map
-
-/***/ }),
-
-/***/ 583:
-/***/ (function(module, __webpack_exports__, __webpack_require__) {
-
-"use strict";
-/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return AppModule; });
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__ = __webpack_require__(53);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2_ionic_angular__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__app_component__ = __webpack_require__(958);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__pages_map_map__ = __webpack_require__(198);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__pages_chats_chats__ = __webpack_require__(197);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_6__pages_home_home__ = __webpack_require__(535);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__ = __webpack_require__(577);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__ = __webpack_require__(575);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__ = __webpack_require__(576);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_10__ionic_native_geolocation__ = __webpack_require__(526);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_11_angularfire2__ = __webpack_require__(36);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_12__app_firebase_config__ = __webpack_require__(959);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__ = __webpack_require__(56);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_14__pages_add_memo_services_audiorecorder__ = __webpack_require__(254);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_15_angularfire2_database_deprecated__ = __webpack_require__(528);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_16_angularfire2_database__ = __webpack_require__(165);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_17__pages_add_memo_services_addMemo__ = __webpack_require__(111);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_18__pages_add_memo_add_memo__ = __webpack_require__(196);
-var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
-};
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-var AppModule = (function () {
-    function AppModule() {
-    }
-    AppModule = __decorate([
-        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["I" /* NgModule */])({
-            declarations: [
-                __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_4__pages_map_map__["a" /* MapPage */],
-                __WEBPACK_IMPORTED_MODULE_5__pages_chats_chats__["a" /* ChatsPage */],
-                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__["a" /* TabsPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_add_memo_add_memo__["a" /* AddMemoPage */]
-            ],
-            imports: [
-                __WEBPACK_IMPORTED_MODULE_1__angular_platform_browser__["a" /* BrowserModule */],
-                __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["d" /* IonicModule */].forRoot(__WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */], {}, {
-                    links: [
-                        { loadChildren: '../pages/add-memo/add-memo.module#AddMemoPageModule', name: 'AddMemoPage', segment: 'add-memo', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/chats/chats.module#ChatsPageModule', name: 'ChatsPage', segment: 'chats', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/login/login.module#LoginPageModule', name: 'LoginPage', segment: 'login', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/map/map.module#MapPageModule', name: 'MapPage', segment: 'map', priority: 'low', defaultHistory: [] },
-                        { loadChildren: '../pages/register/register.module#RegisterPageModule', name: 'RegisterPage', segment: 'register', priority: 'low', defaultHistory: [] }
-                    ]
-                }),
-                __WEBPACK_IMPORTED_MODULE_11_angularfire2__["a" /* AngularFireModule */].initializeApp(__WEBPACK_IMPORTED_MODULE_12__app_firebase_config__["a" /* FIREBASE_CONFIG */]),
-                __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__["b" /* AngularFireAuthModule */],
-                __WEBPACK_IMPORTED_MODULE_16_angularfire2_database__["b" /* AngularFireDatabaseModule */]
-            ],
-            bootstrap: [__WEBPACK_IMPORTED_MODULE_2_ionic_angular__["b" /* IonicApp */]],
-            entryComponents: [
-                __WEBPACK_IMPORTED_MODULE_3__app_component__["a" /* MyApp */],
-                __WEBPACK_IMPORTED_MODULE_4__pages_map_map__["a" /* MapPage */],
-                __WEBPACK_IMPORTED_MODULE_5__pages_chats_chats__["a" /* ChatsPage */],
-                __WEBPACK_IMPORTED_MODULE_6__pages_home_home__["a" /* HomePage */],
-                __WEBPACK_IMPORTED_MODULE_7__pages_tabs_tabs__["a" /* TabsPage */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_add_memo_add_memo__["a" /* AddMemoPage */]
-            ],
-            providers: [
-                __WEBPACK_IMPORTED_MODULE_8__ionic_native_status_bar__["a" /* StatusBar */],
-                __WEBPACK_IMPORTED_MODULE_4__pages_map_map__["a" /* MapPage */],
-                __WEBPACK_IMPORTED_MODULE_9__ionic_native_splash_screen__["a" /* SplashScreen */],
-                __WEBPACK_IMPORTED_MODULE_10__ionic_native_geolocation__["a" /* Geolocation */],
-                __WEBPACK_IMPORTED_MODULE_17__pages_add_memo_services_addMemo__["a" /* AddMemo */],
-                __WEBPACK_IMPORTED_MODULE_14__pages_add_memo_services_audiorecorder__["a" /* AudioRecorder */],
-                __WEBPACK_IMPORTED_MODULE_15_angularfire2_database_deprecated__["a" /* AngularFireDatabase */],
-                __WEBPACK_IMPORTED_MODULE_13_angularfire2_auth__["a" /* AngularFireAuth */],
-                __WEBPACK_IMPORTED_MODULE_18__pages_add_memo_add_memo__["a" /* AddMemoPage */],
-                { provide: __WEBPACK_IMPORTED_MODULE_0__angular_core__["u" /* ErrorHandler */], useClass: __WEBPACK_IMPORTED_MODULE_2_ionic_angular__["c" /* IonicErrorHandler */] }
-            ]
-        })
-    ], AppModule);
-    return AppModule;
-}());
-
-//# sourceMappingURL=app.module.js.map
-
-/***/ }),
-
-/***/ 958:
+/***/ 959:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return MyApp; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__(1);
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1_ionic_angular__ = __webpack_require__(46);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(575);
-/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(576);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__ionic_native_status_bar__ = __webpack_require__(574);
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__ionic_native_splash_screen__ = __webpack_require__(575);
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -735,7 +763,7 @@ var MyApp = (function () {
 
 /***/ }),
 
-/***/ 959:
+/***/ 960:
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
 "use strict";
@@ -752,5 +780,5 @@ var FIREBASE_CONFIG = {
 
 /***/ })
 
-},[578]);
+},[577]);
 //# sourceMappingURL=main.js.map
