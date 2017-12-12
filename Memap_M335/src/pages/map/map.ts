@@ -71,6 +71,7 @@ export class MapPage implements OnInit{
   constructor(public navCtrl: NavController, public platform: Platform, public geolocation: Geolocation, public db: AngularFireDatabase, public Auth: AngularFireAuth, public Memoinfo: AddMemo) {
       this.map = null;
       this.posmarker = null;
+      this.Memoinfo.Initialization = this.initializeMap();
   }
 
   ionViewDidLoad() {
@@ -105,7 +106,7 @@ export class MapPage implements OnInit{
             var mylatlng = {lat: this.lat, lng: this.lon};
 
             var MyPosIcon = 'https://cdn2.iconfinder.com/data/icons/snipicons/500/';
-            var MemoPosIcon = 'https://maps.google.com/mapfiles/kml/shapes/';
+            var MemoPosIcon = 'https://cdn.pixabay.com/photo/2013/07/13/01/09/map-155198_960_720.png';
             var icons = {
                 me: {
                     icon: MyPosIcon + 'map-marker-48.png'
@@ -130,6 +131,7 @@ export class MapPage implements OnInit{
       this.Memoinfo.lat = this.lat;
       this.Memoinfo.lng = this.lon;
       this.Memoinfo.latlng = {lat: this.lat, lng: this.lon};
+      this.Memoinfo.memoicon = 'https://cdn0.iconfinder.com/data/icons/mtt-web-icons/139/microphone-48.png';
 
 
       this.navCtrl.push(AddMemoPage);

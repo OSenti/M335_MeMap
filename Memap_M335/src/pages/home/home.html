@@ -7,10 +7,11 @@
 <ion-content padding>
   <ion-list>
     <ion-list-header>
-      Memos
+      Deine Memos:
     </ion-list-header>
-    <ion-item *ngFor="let item of memos$ | async">
-      {{item.name}}
+    <ion-item *ngFor="let item of memos$ | async"
+    detail-push navPush="EditMemoPage" [navParams]="{item: item}">
+      {{item.name}}<p style="color: darkgray; float: right">[Touch to edit]</p>
     </ion-item>
   </ion-list>
 </ion-content>

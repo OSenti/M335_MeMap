@@ -6,6 +6,8 @@ import {google} from 'google-maps';
 import {Injectable} from "@angular/core";
 import {AngularFireDatabase, AngularFireList} from "angularfire2/database";
 
+import {Firebase} from "ionic-native";
+
 import {MemoItem} from "../models/addMemo.interface";
 
 
@@ -18,7 +20,6 @@ export class AddMemo {
 
     }
 
-
     getMemoList(){
         return this.memoListRef;
     }
@@ -27,6 +28,19 @@ export class AddMemo {
         return this.memoListRef.push(memoitem)
     }
 
+    editMemoData(memoitem: MemoItem){
+        return this.memoListRef.update(memoitem.key, memoitem);
+    }
+
+    removeMemoData(memoitem: MemoItem){
+        return this.memoListRef.remove(memoitem.key);
+    }
+
+    removeMarker(memoitem: MemoItem){
+        if(this.content = memoitem.name){
+            this.marker.setMap(null);
+        }
+    }
 
     map: any;
 
@@ -42,6 +56,14 @@ export class AddMemo {
 
     marker: any;
 
+    Initialization: any;
+
+    getInitialization(){
+
+        return this.Initialization;
+
+    }
+
     addMemoMarker(){
 
         this.marker = new google.maps.Marker({
@@ -50,6 +72,8 @@ export class AddMemo {
             title: this.content,
             icon: this.memoicon
         });
+
+        this.marker.setMap(Map);
     }
 
 }
