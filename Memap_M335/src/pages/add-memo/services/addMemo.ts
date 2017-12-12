@@ -73,7 +73,7 @@ export class AddMemo {
             icon: this.memoicon
         });
 
-        this.marker.setMap(Map);
+        this.marker.setMap(this.map);
     }
 
 }

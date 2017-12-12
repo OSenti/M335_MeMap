@@ -705,7 +705,7 @@ var AddMemo = (function () {
             title: this.content,
             icon: this.memoicon
         });
-        this.marker.setMap(Map);
+        this.marker.setMap(this.map);
     };
     AddMemo = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),

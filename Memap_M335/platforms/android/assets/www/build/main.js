@@ -690,6 +690,11 @@ var AddMemo = (function () {
     AddMemo.prototype.removeMemoData = function (memoitem) {
         return this.memoListRef.remove(memoitem.key);
     };
+    AddMemo.prototype.removeMarker = function (memoitem) {
+        if (this.content = memoitem.name) {
+            this.marker.setMap(null);
+        }
+    };
     AddMemo.prototype.getInitialization = function () {
         return this.Initialization;
     };
@@ -700,6 +705,7 @@ var AddMemo = (function () {
             title: this.content,
             icon: this.memoicon
         });
+        this.marker.setMap(Map);
     };
     AddMemo = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_2__angular_core__["A" /* Injectable */])(),
